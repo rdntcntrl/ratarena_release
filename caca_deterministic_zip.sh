@@ -2,6 +2,8 @@
 
 # ensure sort is consistent
 export LC_ALL=C
+# for zip to not mess up the timestamps
+export TZ=UTC
 
 if [ "$#" -lt 3 ]; then
 	echo "missing arguments" >&2
