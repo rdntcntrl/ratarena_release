@@ -1,0 +1,8 @@
+[submodule "ratoa_gamecode"]
+	path = ratoa_gamecode
+	url = https://github.com/rdntcntrl/ratoa_gamecode.git
+	branch = ratoa
+[submodule "ratoa_assets"]
+	path = ratoa_assets
+	url = https://github.com/rdntcntrl/ratoa_assets.git
+	branch = master
