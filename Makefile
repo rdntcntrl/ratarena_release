@@ -1,7 +1,26 @@
 .PHONY: release qvm clean clean_assets clean_gamecode clean_output distclean
 
+COMPILE_PLATFORM=$(shell uname|sed -e s/_.*//|tr '[:upper:]' '[:lower:]')
+
+COMPILE_ARCH=$(shell uname -m | sed -e s/i.86/i386/)
+
+ifeq ($(COMPILE_PLATFORM),sunos)
+  # Solaris uname and GNU uname differ
+  COMPILE_ARCH=$(shell uname -p | sed -e s/i.86/i386/)
+endif
+ifeq ($(COMPILE_PLATFORM),darwin)
+  # Apple does some things a little differently...
+  COMPILE_ARCH=$(shell uname -p | sed -e s/i.86/i386/)
+endif
+
+ifeq ($(COMPILE_PLATFORM),mingw32)
+  ifeq ($(COMPILE_ARCH),i386)
+    COMPILE_ARCH=x86
+  endif
+endif
+
 GAMECODE_DIR := ratoa_gamecode
-GAMECODE_QVM_DIR := $(GAMECODE_DIR)/build/release-linux-x86_64/baseq3/vm
+GAMECODE_QVM_DIR := $(GAMECODE_DIR)/build/release-linux-$(COMPILE_ARCH)/baseq3/vm
 ASSETS_DIR := ratoa_assets
 
 GAMECODE_OPTS := WITH_MULTITOURNAMENT=1
