@@ -10,7 +10,7 @@ jobs:
           submodules: 'true'
 
       - name: Install Dependencies
-        run: sudo apt-get update && sudo apt-get build-dep -y openarena ioquake3 && sudo apt-get install -y zip
+        run: sudo apt-get update && sudo apt-get install -y gcc make zip
 
       - name: Build PK3
         run: make distclean && make
