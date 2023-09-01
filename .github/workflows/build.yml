@@ -1,0 +1,24 @@
+name: Build and Release
+on: [push]
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: 'true'
+
+      - name: Install Dependencies
+        run: sudo apt-get update && sudo apt-get build-dep -y openarena ioquake3 && sudo apt-get install -y zip
+
+      - name: Build PK3
+        run: make distclean && make
+
+      - name: Upload PK3
+        uses: actions/upload-artifact@v3
+        with:
+          name: release
+          path: build/z-ratmod-*.pk3
+
+
