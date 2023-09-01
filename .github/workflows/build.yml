@@ -1,7 +1,10 @@
 name: Build and Release
-on: [push]
+on:
+  push:
+    tags:
+      - "v*"
 jobs:
-  Build:
+  build-and-release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -15,10 +18,15 @@ jobs:
       - name: Build PK3
         run: make distclean && make
 
-      - name: Upload PK3
-        uses: actions/upload-artifact@v3
+      #- name: Upload PK3
+      #  uses: actions/upload-artifact@v3
+      #  with:
+      #    name: release
+      #    path: build/z-ratmod-*.pk3
+      - name: Create a Release
+        uses: "marvinpinto/action-automatic-releases@latest"
         with:
-          name: release
-          path: build/z-ratmod-*.pk3
-
-
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          files: |
+            build/z-ratmod-*.pk3
